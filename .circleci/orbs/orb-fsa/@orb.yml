@@ -1,0 +1,23 @@
+version: 2.1
+
+executors:
+  java:
+    description: The docker container to run java commands
+    docker:
+      - image: circleci/openjdk:8-jdk
+
+jobs:
+  orb-fsa:
+    executor: java
+    parameters:
+      api_key:
+        type: string
+        default: ""
+      directory:
+        type: string
+        default: "."
+      project_name:
+        type: string
+        default: "MyProject"
+    steps:
+      - run: bash <(curl -s -L https://github.com/whitesource/fs-agent-distribution/raw/master/standAlone/wss_agent.sh) -apiKey << parameters.api_key >> -project << parameters.project_name >> -d << parameters.directory >>
