@@ -1,4 +1,5 @@
 version: 2.1
+description: "The orb integrates WhiteSource Unified Agent, a tool which extracts descriptive information from your open source libraries located on your file system. For more information: https://whitesource.atlassian.net/wiki/spaces/WD/pages/33718339/Unified+Agent"
 
 executors:
   java:
@@ -7,17 +8,27 @@ executors:
       - image: circleci/openjdk:8-jdk
 
 jobs:
-  orb-fsa:
+  scan:
     executor: java
     parameters:
       api_key:
+        description: Unique identifier of the organization. Can be retrieved from the admin page in your WhiteSource account.
         type: string
         default: ""
       directory:
+        description: Comma separated list of directories and / or files to scan.
         type: string
         default: "."
-      project_name:
+      config_file_path:
+        description: Configuration file name (including file path).
         type: string
-        default: "MyProject"
+        default: "./whitesource-fs-agent.config"
     steps:
-      - run: bash <(curl -s -L https://github.com/whitesource/fs-agent-distribution/raw/master/standAlone/wss_agent.sh) -apiKey << parameters.api_key >> -project << parameters.project_name >> -d << parameters.directory >>
+      - checkout
+      - run:
+          command: |
+            if [[ -z "<< parameters.api_key >>" ]]; then
+              bash <(curl -s -L https://github.com/whitesource/fs-agent-distribution/raw/master/standAlone/wss_agent_orb.sh) -c << parameters.config_file_path >> -d << parameters.directory >>
+            else
+              bash <(curl -s -L https://github.com/whitesource/fs-agent-distribution/raw/master/standAlone/wss_agent_orb.sh) -apiKey << parameters.api_key >> -c << parameters.config_file_path >> -d << parameters.directory >>
+            fi
