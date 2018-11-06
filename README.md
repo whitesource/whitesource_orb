@@ -27,3 +27,5 @@ config_file_path - Configuration file name (including file path). Defaults to ./
 | Parameter  | Description | Required | Default | Type |
 | -----------| -------------------------------------------------------------------------------------------------------- | ------------- | ------------- | ------------- |
 | api_key  |  Unique identifier of the organization. Can be retrieved from the admin page in your WhiteSource account. | Yes | - | String |
+| directory  |  Comma separated list of directories and / or files to scan. | - | . | String |
+| config_file_path  |  Configuration file name (including file path) | - | ./whitesource-fs-agent.config | String |
