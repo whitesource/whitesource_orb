@@ -18,11 +18,6 @@ WhiteSource Scanner Orb enables you to check your container images for complianc
 The scanner itself is a small, easy to implement vulnerability scanning tool.
 
 ### Related Parameters:
-api_key (Required) -  Unique identifier of the organization. Can be retrieved from the admin page in your WhiteSource account.
-
-directory - Comma separated list of directories and / or files to scan.
-
-config_file_path - Configuration file name (including file path). Defaults to ./whitesource-fs-agent.config 
 
 | Parameter  | Description | Required | Default | Type |
 | -----------| -------------------------------------------------------------------------------------------------------- | ------------- | ------------- | ------------- |
