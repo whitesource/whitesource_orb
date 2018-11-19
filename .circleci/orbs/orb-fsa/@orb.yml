@@ -5,7 +5,7 @@ executors:
   java:
     description: The docker container to run java commands
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: docker pull chen470/fsa
 
 jobs:
   scan:
