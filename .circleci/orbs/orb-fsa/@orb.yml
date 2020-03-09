@@ -1,5 +1,8 @@
 version: 2.1
-description: "The orb integrates WhiteSource Unified Agent, a tool which extracts descriptive information from your open source libraries located on your file system. For more information: https://whitesource.atlassian.net/wiki/spaces/WD/pages/33718339/Unified+Agent"
+description: "WhiteSource Unified Agent is a tool which extracts descriptive information from your open source libraries located on your file system."
+display:
+  home_url: https://whitesource.atlassian.net/wiki/spaces/WD/pages/33718339/Unified+Agent
+  source_url: https://github.com/whitesource/whitesource_orb
 
 executors:
   java:
