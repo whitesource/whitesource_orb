@@ -1,14 +1,15 @@
 version: 2.1
-description: "WhiteSource Unified Agent is a tool which extracts descriptive information from your open source libraries located on your file system."
+description: "The orb integrates WhiteSource Unified Agent, a tool which extracts descriptive information from your open source libraries located on your file system. For more information: https://whitesource.atlassian.net/wiki/spaces/WD/pages/33718339/Unified+Agent"
+
 display:
-  home_url: https://whitesource.atlassian.net/wiki/spaces/WD/pages/33718339/Unified+Agent
+  home_url: https://www.whitesourcesoftware.com
   source_url: https://github.com/whitesource/whitesource_orb
 
 executors:
   java:
     description: The docker container to run java commands
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: whitesourcesoftware/ua-base:v1
 
 jobs:
   scan:
@@ -17,7 +18,7 @@ jobs:
       api_key:
         description: Unique identifier of the organization. Can be retrieved from the admin page in your WhiteSource account.
         type: string
-        default: ""
+        default: "${API_KEY}"
       directory:
         description: Comma separated list of directories and / or files to scan.
         type: string
@@ -25,13 +26,25 @@ jobs:
       config_file_path:
         description: Configuration file name (including file path).
         type: string
-        default: "./whitesource-fs-agent.config"
+        default: "whitesource-fs-agent.config"
+      commands_file_path:
+        description: install commands file (including file path) 
+        type: string
+        default: "install_commands.sh"
     steps:
       - checkout
       - run:
           command: |
             if [[ -z "<< parameters.api_key >>" ]]; then
-              bash <(curl -s -L https://github.com/whitesource/fs-agent-distribution/raw/master/standAlone/wss_agent_orb.sh) -c << parameters.config_file_path >> -d << parameters.directory >>
+              echo "API_KEY has not been set, please set it up in the project environment variables since its mandatory"
+              exit 1
             else
-              bash <(curl -s -L https://github.com/whitesource/fs-agent-distribution/raw/master/standAlone/wss_agent_orb.sh) -apiKey << parameters.api_key >> -c << parameters.config_file_path >> -d << parameters.directory >>
+                if [[ -f << parameters.commands_file_path >> ]]
+                then
+                    echo "Executing file: install_commands.sh"
+                    echo ""
+                    chmod +x << parameters.commands_file_path >>
+                    ./<< parameters.commands_file_path >>
+                fi
+                  bash <(curl -s -L https://raw.githubusercontent.com/whitesource/unified-agent-distribution/master/standAlone/wss_agent_orb.sh) -apiKey << parameters.api_key >> -c << parameters.config_file_path >> -d << parameters.directory >>
             fi
