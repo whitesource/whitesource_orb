@@ -1,5 +1,5 @@
 version: 2.1
-description: "The orb integrates WhiteSource Unified Agent, a tool which extracts descriptive information from your open source libraries located on your file system. For more information: https://whitesource.atlassian.net/wiki/spaces/WD/pages/33718339/Unified+Agent"
+description: "The orb integrates WhiteSource Unified Agent, a tool for detecting security vulnerabilities and compliance data related to open source components. For more information: https://whitesource.atlassian.net/wiki/spaces/WD/pages/804814917/Unified+Agent+Overview"
 
 display:
   home_url: https://www.whitesourcesoftware.com
