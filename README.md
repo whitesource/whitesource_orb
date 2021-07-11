@@ -38,5 +38,6 @@ In order to view the status, go to the CircleCI GUI and click on ‘jobs’. Cli
 | api_key  |  Unique identifier of the organization. Can be retrieved from the admin page in your WhiteSource account. | Yes | - | String |
 | directory  |  Comma separated list of directories and / or files to scan. | - | . | String |
 | config_file_path  |  Configuration file name (including file path) | - | ./whitesource-fs-agent.config | String |
+| commands_file_path | Install commands file (including file path) | - | install_commands.sh | String | 
 
 For detailed information, please visit - https://whitesource.atlassian.net/wiki/spaces/WD/pages/680034460/WhiteSource-Scan+Orb
