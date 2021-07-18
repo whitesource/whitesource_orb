@@ -9,7 +9,7 @@ executors:
   java:
     description: The docker container to run java commands
     docker:
-      - image: whitesourcesoftware/ua-base:v1
+      - image: whitesourcesoftware/ua-base:v2
 
 jobs:
   scan:
